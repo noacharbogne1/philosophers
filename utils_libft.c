@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_libft.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 15:47:03 by ncharbog          #+#    #+#             */
+/*   Updated: 2025/01/30 17:24:17 by ncharbog         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philosophers.h"
+
+void	*ft_lstnew_generic(size_t data_size)
+{
+	void	*new_node;
+
+	new_node = malloc(data_size);
+	if (!new_node)
+		return (NULL);
+	memset(new_node, 0, data_size);
+	return (new_node);
+}
+
+void ft_lstadd_back_generic(void **lst, void *new_node, size_t next_offset)
+{
+	void *last;
+	void *first;
+	void **next_ptr;
+	void **prev_ptr;
+
+	if (!lst || !new_node)
+		return;
+	next_ptr = (void **)((char *)new_node + next_offset);
+	prev_ptr = (void **)((char *)new_node + next_offset + sizeof(void *));
+	if (*lst == NULL)
+	{
+		*lst = new_node;
+		*next_ptr = new_node;
+		*prev_ptr = new_node;
+		return;
+	}
+	first = *lst;
+	last = *(void **)((char *)first + next_offset + sizeof(void *));
+	*next_ptr = first;
+	*prev_ptr = last;
+	*(void **)((char *)last + next_offset) = new_node;
+	*(void **)((char *)first + next_offset + sizeof(void *)) = new_node;
+}
+
+int	ft_isdigit(int c)
+{
+	if (!(c >= '0' && c <= '9'))
+		return (0);
+	return (2048);
+}
+
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	n;
+	int	result;
+
+	i = 0;
+	n = 0;
+	result = 0;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == 45 || nptr[i] == 43)
+	{
+		if (nptr[i] == 45)
+			n++;
+		i++;
+	}
+	if (nptr[i] == 45 || nptr[i] == 43)
+		return (0);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + (nptr[i] - '0');
+		i++;
+	}
+	if (n == 1)
+		return (result * -1);
+	return (result);
+}
