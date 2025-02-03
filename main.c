@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:13:07 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/01/31 17:24:24 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:28:10 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	wait_philosophers(t_data *data)
 
 int	launch_threads(t_data *data)
 {
-	t_philo	*cur;
+	t_philo		*cur;
+	//pthread_t	monitor;
 
 	cur = data->philo;
 	while (cur)
@@ -42,6 +43,10 @@ int	launch_threads(t_data *data)
 		if (cur == data->philo)
 			break;
 	}
+	//if (pthread_create(&monitor, NULL, big_brother, data) != 0)
+			//return (1);
+	//if (pthread_join(monitor, NULL) != 0)
+		//return (1);
 	wait_philosophers(data);
 	return (0);
 }
@@ -51,15 +56,20 @@ int	destroy(t_data *data)
 	t_philo	*cur;
 
 	cur = data->philo;
-	if (pthread_mutex_destroy(&cur->fork) != 0)
-		return (1);
-	cur = cur->next;
-	while (cur != data->philo)
+	while (cur)
 	{
 		if (pthread_mutex_destroy(&cur->fork) != 0)
 			return (1);
+		if (pthread_mutex_destroy(&cur->meal_lock) != 0)
+			return (1);
 		cur = cur->next;
+		if (cur == data->philo)
+			break;
 	}
+	if (pthread_mutex_destroy(&data->dead_lock) != 0)
+		return (1);
+	if (pthread_mutex_destroy(&data->write_lock) != 0)
+		return (1);
 	return (0);
 }
 

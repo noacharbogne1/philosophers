@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/01/31 17:19:27 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:34:11 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef	struct	s_philo
 	pthread_mutex_t		fork;
 	unsigned int		id;
 	time_t				last_meal;
+	pthread_mutex_t		meal_lock;
 	time_t				timestamp;
 	unsigned int		nb_ate;
 	t_data				*data;
@@ -66,10 +67,19 @@ typedef	struct	s_data
 	time_t	time_to_sleep;
 	int		nb_must_eat;
 	pthread_mutex_t		write_lock;
+	pthread_mutex_t		dead_lock;
 	time_t	start_time;
 	bool	flag_dead;
 	t_philo	*philo;
 }	t_data;
+
+int	destroy(t_data *data);
+int	launch_threads(t_data *data);
+int	wait_philosophers(t_data *data);
+int	check_flag(t_data *data);
+
+//void	*big_brother(void *arg);
+int		big_brother(void *arg);
 
 // init.c //
 int	create_philosophers(t_data *data, char **argv);

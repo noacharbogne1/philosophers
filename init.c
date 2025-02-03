@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:10:19 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/01/31 17:17:03 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/03 14:47:12 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	create_philosophers(t_data *data, char **argv)
 		new->id = 1 + i;
 		if (pthread_mutex_init(&new->fork, NULL) != 0)
 			return (1);
+		if (pthread_mutex_init(&new->meal_lock, NULL) != 0)
+			return (1);
 		new->data = data;
+		new->last_meal = 0;
 		new->next = NULL;
 		new->prev = NULL;
 		ft_lstadd_back_generic((void **)&data->philo, new,
@@ -48,6 +51,8 @@ int	init_data(t_data *data, char **argv)
 		data->nb_must_eat = ft_atoi(argv[5]);
 	data->start_time = get_time() + data->time_to_die * 10;
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
 		return (1);
 	if (create_philosophers(data, argv))
 		return (1);

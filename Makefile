@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/30 16:33:01 by ncharbog          #+#    #+#              #
-#    Updated: 2025/01/31 17:14:11 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/02/03 13:48:12 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC = main.c\
 	routine.c\
 	init.c\
 	utils.c\
-	utils_libft.c
+	utils_libft.c\
+	monitor.c
 
 OBJ_DIR = .objects
 
