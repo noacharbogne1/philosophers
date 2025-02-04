@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:13:07 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/03 16:28:10 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:55:36 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	wait_philosophers(t_data *data)
 int	launch_threads(t_data *data)
 {
 	t_philo		*cur;
-	//pthread_t	monitor;
+	pthread_t	monitor;
 
 	cur = data->philo;
 	while (cur)
@@ -43,10 +43,10 @@ int	launch_threads(t_data *data)
 		if (cur == data->philo)
 			break;
 	}
-	//if (pthread_create(&monitor, NULL, big_brother, data) != 0)
-			//return (1);
-	//if (pthread_join(monitor, NULL) != 0)
-		//return (1);
+	if (pthread_create(&monitor, NULL, big_brother, data) != 0)
+			return (1);
+	if (pthread_join(monitor, NULL) != 0)
+		return (1);
 	wait_philosophers(data);
 	return (0);
 }
@@ -70,6 +70,7 @@ int	destroy(t_data *data)
 		return (1);
 	if (pthread_mutex_destroy(&data->write_lock) != 0)
 		return (1);
+	free_all(data);
 	return (0);
 }
 

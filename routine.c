@@ -6,16 +6,29 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:12:58 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/03 17:42:58 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:25:15 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_flag(t_data *data)
+void	precise_sleep(t_data *data, time_t sleeping_time)
+{
+	time_t	start;
+
+	start = get_time();
+	while ((get_time() - start) < sleeping_time)
+	{
+		if (check_sim_status(data))
+			return ;
+		usleep(1);
+	}
+}
+
+int	check_sim_status(t_data *data)
 {
 	pthread_mutex_lock(&data->dead_lock);
-	if (data->flag_dead == true)
+	if (data->stop_sim == true)
 	{
 		pthread_mutex_unlock(&data->dead_lock);
 		return (1);
@@ -30,32 +43,45 @@ void	*routine(void *arg)
 
 	cur = (t_philo *)arg;
 	delay(cur->data->start_time);
-	while (!big_brother(cur))
+	if (cur->id % 2 == 1)
+		usleep(500);
+	while (!check_sim_status(cur->data))
 	{
-		if (cur->id < cur->prev->id)
+		if (cur->id < cur->prev->id) // forks
 		{
-			if (big_brother(cur))
+			if (check_sim_status(cur->data))
 			 	return (0);
 			pthread_mutex_lock(&cur->fork);
+			if (check_sim_status(cur->data))
+			{
+				pthread_mutex_unlock(&cur->fork);
+			 	return (0);
+			}
 			print_status(cur, RIGHT_FORK);
 			pthread_mutex_lock(&cur->prev->fork);
 			print_status(cur, LEFT_FORK);
 		}
 		else
 		{
-			if (big_brother(cur))
-				return (0);
+			if (check_sim_status(cur->data))
+			 	return (0);
 			pthread_mutex_lock(&cur->prev->fork);
+			if (check_sim_status(cur->data))
+			{
+				pthread_mutex_unlock(&cur->prev->fork);
+				return (0);
+			}
 			print_status(cur, LEFT_FORK);
 			pthread_mutex_lock(&cur->fork);
 			print_status(cur, RIGHT_FORK);
 		}
 		pthread_mutex_lock(&cur->meal_lock);
 		cur->last_meal = get_time();
-		pthread_mutex_unlock(&cur->meal_lock);
+		//cur->nb_ate++;
+		pthread_mutex_unlock(&cur->meal_lock); // manger
 		print_status(cur, EAT);
-		usleep(cur->data->time_to_eat * 1000);
-		if (cur->id < cur->prev->id)
+		precise_sleep(cur->data, cur->data->time_to_eat * 1000);
+		if (cur->id < cur->prev->id) // repose les forks
 		{
 			pthread_mutex_unlock(&cur->prev->fork);
 			pthread_mutex_unlock(&cur->fork);
@@ -65,14 +91,14 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(&cur->fork);
 			pthread_mutex_unlock(&cur->prev->fork);
 		}
-		if (big_brother(cur))
+		if (check_sim_status(cur->data))
+		 	return (0);
+		print_status(cur, SLEEP); // dormir
+		precise_sleep(cur->data, cur->data->time_to_sleep * 1000);
+		if (check_sim_status(cur->data))
 			return (0);
-		print_status(cur, SLEEP);
-		usleep(cur->data->time_to_sleep * 1000);
-		if (big_brother(cur))
-			return (0);
-		print_status(cur, THINK);
-		usleep(0);
+		print_status(cur, THINK); // penser
+		precise_sleep(cur->data, 1);
 	}
 	return (0);
 }

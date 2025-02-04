@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:11:08 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/03 16:15:28 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 11:03:24 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ void	delay(time_t time)
 {
 	while (get_time() < time)
 		continue;
+}
+
+void	free_all(t_data *data)
+{
+	t_philo	*cur;
+	t_philo	*tmp;
+	t_philo	*start;
+
+	cur = data->philo;
+	start = data->philo;
+	while (cur)
+	{
+		tmp = cur->next;
+		free(cur);
+		cur = tmp;
+		if (cur == start)
+			break;
+	}
 }
