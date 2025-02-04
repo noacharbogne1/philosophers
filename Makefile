@@ -6,7 +6,7 @@
 #    By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/30 16:33:01 by ncharbog          #+#    #+#              #
-#    Updated: 2025/02/03 13:48:12 by ncharbog         ###   ########.fr        #
+#    Updated: 2025/02/04 17:26:54 by ncharbog         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,16 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	cc -o $(NAME) $(OBJ)
+	@cc -o $(NAME) $(OBJ)
 
 $(OBJ_DIR)/%.o: %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 re:	fclean all
 
 .PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:13:07 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 14:20:21 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:25:54 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,35 @@ int	destroy(t_data *data)
 	return (0);
 }
 
+int	check_args(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (argv[i])
+	{
+		j = 0;
+		if (ft_atoi(argv[i]) < 0)
+		{
+			printf("%s\n", NEGATIVE);
+			return (1);
+		}
+		while (argv[i][j])
+		{
+			if (!ft_isdigit(argv[i][j]))
+			{
+				printf("%s\n", DIGIT);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -84,17 +113,8 @@ int	main(int argc, char **argv)
 	j = 0;
 	if (argc >= 5 && argc <= 6)
 	{
-		while (argv[i])
-		{
-			j = 0;
-			while (argv[i][j])
-			{
-				if (!ft_isdigit((int)argv[i][j]))
-					return (printf("Error: invalid argument\n"));
-				j++;
-			}
-			i++;
-		}
+		if (check_args(argv))
+			return (1);
 		if (init_data(&data, argv))
 			return (1);
 		if (launch_threads(&data))
@@ -104,5 +124,5 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	else
-		printf("Error: incorrect number of arguments\n");
+		printf("%s\n", NB_ARGUMENTS);
 }

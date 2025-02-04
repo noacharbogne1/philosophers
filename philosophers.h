@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 13:54:19 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:37:33 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,13 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
-enum		e_error
-{
-	MUTEX_CREATE,
-	MUTEX_DESTROY,
-	MUTEX_JOIN,
-	MUTEX_LOCK,
-	MUTEX_UNLOCK,
-	INVALID_ARG,
-	NB_ARG,
-	THREAD_CREATE,
-};
+// errors messages
+
+# define DIGIT "Error: invalid characters in argument"
+//# define INT_OVERFLOW "Error: argument overflows INT limits"
+# define NEGATIVE "Error: argument can't be a negative number"
+# define NB_ARGUMENTS "Error: invalid number of arguments"
+# define NB_PHILOS "Error: must be at least one philosopher"
 
 enum		e_status
 {
