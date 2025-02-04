@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:11:08 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 11:03:24 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:53:55 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	print_status(t_philo *cur, int status)
 	return (0);
 }
 
-int	get_time(void)
+time_t	get_time(void)
 {
 	struct	timeval	current_time;
 

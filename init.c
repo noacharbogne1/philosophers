@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:10:19 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 11:18:17 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:41:58 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	init_data(t_data *data, char **argv)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->nb_must_eat = ft_atoi(argv[5]);
-	data->start_time = get_time() + data->time_to_die * 10;
+	data->start_time = get_time() + data->time_to_die * 2;
 	data->stop_sim = false;
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 11:23:16 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:54:19 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	*routine(void *arg);
 
 // utils.c //
 int		print_status(t_philo *cur, int status);
-int		get_time(void);
+time_t		get_time(void);
 void	delay(time_t time);
 void	free_all(t_data *data);
 
