@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:53:10 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:54:37 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int		launch_threads(t_data *data);
 int		destroy(t_data *data);
 
 //monitor.c
-int		stop_simulation(t_philo *cur);
+int		stop_simulation_time(t_philo *cur);
+int		stop_simulation_nb(t_philo *cur);
 void	*big_brother(void *arg);
 
 //parsing.c

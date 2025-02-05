@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:46:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:46:58 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:44:08 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	launch_threads(t_data *data)
 		return (1);
 	if (pthread_join(monitor, NULL) != 0)
 		return (1);
-	wait_philosophers(data);
+	if (wait_philosophers(data))
+		return (1);
 	return (0);
 }
 
