@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:47:03 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 16:41:51 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:23:59 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,43 @@ int	ft_isdigit(int c)
 	return (2048);
 }
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	int	i;
-	int	n;
-	int	result;
+	int		i;
+	int		sign;
+	long	result;
 
 	i = 0;
-	n = 0;
+	sign = 1;
 	result = 0;
-	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == 45 || nptr[i] == 43)
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		if (nptr[i] == 45)
-			n++;
+		if (nptr[i] == '-')
+			sign = -1;
 		i++;
 	}
-	if (nptr[i] == 45 || nptr[i] == 43)
-		return (0);
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
-	if (n == 1)
-		return (result * -1);
-	return (result);
+	return (result * sign);
+}
+
+int	ft_count(long n)
+{
+	int	count;
+
+	count = 1;
+	if (n < 0)
+	{
+		n = n * -1;
+		count++;
+	}
+	while (n >= 10)
+	{
+		n = n / 10;
+		count++;
+	}
+	return (count);
 }

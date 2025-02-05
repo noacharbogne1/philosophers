@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 09:24:14 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:22:26 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 // errors messages
 
 # define DIGIT "Error: invalid characters in argument"
-//# define INT_OVERFLOW "Error: argument overflows INT limits"
-# define NEGATIVE "Error: argument can't be a negative number"
+# define INT_OVERFLOW "Error: argument overflows INT limits"
+# define NEGATIVE "Error: argument can't be 0 or a negative number"
 # define NB_ARGUMENTS "Error: invalid number of arguments"
 # define NB_PHILOS "Error: must be at least one philosopher"
 
@@ -92,8 +92,9 @@ int			precise_sleep(t_data *data, time_t sleeping_time);
 
 // utils_libft.c //
 int		ft_isdigit(int c);
-int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 void	*ft_lstnew_generic(size_t data_size);
 void	ft_lstadd_back_generic(void **lst, void *new_node, size_t next_offset);
+int		ft_count(long n);
 
 #endif
