@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 16:37:33 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:24:14 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,11 @@ int	init_data(t_data *data, char **argv);
 void	*routine(void *arg);
 
 // utils.c //
-int		print_status(t_philo *cur, int status);
+int			print_status(t_philo *cur, int status);
 time_t		get_time(void);
-void	delay(time_t time);
-void	free_all(t_data *data);
+void		delay(time_t time);
+void		free_all(t_data *data);
+int			precise_sleep(t_data *data, time_t sleeping_time);
 
 // utils_libft.c //
 int		ft_isdigit(int c);

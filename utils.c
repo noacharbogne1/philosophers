@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:11:08 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/04 17:27:15 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:23:52 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,18 @@ void	free_all(t_data *data)
 		if (cur == start)
 			break;
 	}
+}
+
+int	precise_sleep(t_data *data, time_t sleeping_time)
+{
+	time_t	start;
+
+	start = get_time();
+	while ((get_time() - start) < sleeping_time)
+	{
+		if (check_sim_status(data))
+			return (1);
+		usleep(50);
+	}
+	return (0);
 }
