@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:11:08 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:43:13 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:01:55 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ int	print_status(t_philo *cur, int status)
 		return (1);
 	cur->timestamp = get_time() - cur->data->start_time;
 	if (status == RIGHT_FORK || status == LEFT_FORK)
-		printf("%li ms | philosopher %u has taken a fork\n",
+		printf("%li ms | philosopher %u has taken a fork 🍴\n",
 			cur->timestamp, cur->id);
 	else if (status == EAT)
-		printf("%li ms | philosopher %u is eating\n", cur->timestamp, cur->id);
+		printf("%li ms | philosopher %u is eating 🫕\n",
+			cur->timestamp, cur->id);
 	else if (status == SLEEP)
-		printf("%li ms | philosopher %u is sleeping\n",
+		printf("%li ms | philosopher %u is sleeping 💤\n",
 			cur->timestamp, cur->id);
 	else if (status == THINK)
-		printf("%li ms | philosopher %u is thinking\n",
+		printf("%li ms | philosopher %u is thinking 💭\n",
 			cur->timestamp, cur->id);
 	else if (status == DIED)
-		printf("%li ms | philosopher %u died\n", cur->timestamp, cur->id);
+		printf("%li ms | philosopher %u died 🪦\n", cur->timestamp, cur->id);
 	if (pthread_mutex_unlock(&cur->data->write_lock) != 0)
 		return (1);
 	return (0);
