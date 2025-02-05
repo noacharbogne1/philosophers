@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:11:08 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 11:01:55 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:21:54 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	print_status(t_philo *cur, int status)
 {
 	if (pthread_mutex_lock(&cur->data->write_lock) != 0)
 		return (1);
+	if (check_sim_status(cur->data))
+	{
+		pthread_mutex_unlock(&cur->data->write_lock);
+		return (1);
+	}
 	cur->timestamp = get_time() - cur->data->start_time;
 	if (status == RIGHT_FORK || status == LEFT_FORK)
 		printf("%li ms | philosopher %u has taken a fork 🍴\n",

@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:12:58 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:43:28 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:22:33 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	check_sim_status(t_data *data)
 int	take_forks(t_philo *cur)
 {
 	pthread_mutex_lock(&cur->fork);
-	if (check_sim_status(cur->data))
+	if (check_sim_status(cur->data) || print_status(cur, RIGHT_FORK))
 	{
 		pthread_mutex_unlock(&cur->fork);
 		return (0);
 	}
-	print_status(cur, RIGHT_FORK);
 	if (cur->prev != cur)
 		pthread_mutex_lock(&cur->prev->fork);
 	else
@@ -40,12 +39,12 @@ int	take_forks(t_philo *cur)
 		pthread_mutex_unlock(&cur->fork);
 		return (0);
 	}
-	if (check_sim_status(cur->data))
+	if (check_sim_status(cur->data) || print_status(cur, LEFT_FORK))
 	{
 		pthread_mutex_unlock(&cur->prev->fork);
+		pthread_mutex_unlock(&cur->fork);
 		return (0);
 	}
-	print_status(cur, LEFT_FORK);
 	return (1);
 }
 
@@ -53,7 +52,6 @@ int	lunch_time(t_philo *cur)
 {
 	pthread_mutex_lock(&cur->meal_lock);
 	cur->last_meal = get_time();
-	cur->nb_ate++;
 	pthread_mutex_unlock(&cur->meal_lock);
 	if (check_sim_status(cur->data))
 	{
@@ -61,6 +59,9 @@ int	lunch_time(t_philo *cur)
 		return (0);
 	}
 	print_status(cur, EAT);
+	pthread_mutex_lock(&cur->meal_lock);
+	cur->nb_ate++;
+	pthread_mutex_unlock(&cur->meal_lock);
 	precise_sleep(cur->data, cur->data->time_to_eat);
 	pthread_mutex_unlock(&cur->prev->fork);
 	pthread_mutex_unlock(&cur->fork);
