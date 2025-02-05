@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:12:58 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:09:47 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:43:28 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	lunch_time(t_philo *cur)
 int	sleep_think(t_philo *cur)
 {
 	if (check_sim_status(cur->data))
-			return (0);
+		return (0);
 	print_status(cur, SLEEP);
 	if (precise_sleep(cur->data, cur->data->time_to_sleep))
 		return (0);

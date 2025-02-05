@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 17:10:19 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:23:41 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:35:38 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	create_philosophers(t_data *data, char **argv)
 
 	data->philo = NULL;
 	nb_philos = ft_atol(argv[1]);
-	i = 0;
-	while (i < nb_philos)
+	i = -1;
+	while (++i < nb_philos)
 	{
 		new = (t_philo *)ft_lstnew_generic(sizeof(t_philo));
 		if (!new)
@@ -37,7 +37,6 @@ int	create_philosophers(t_data *data, char **argv)
 		new->prev = NULL;
 		ft_lstadd_back_generic((void **)&data->philo, new,
 			((size_t)(&((t_philo *)0)->next)));
-		i++;
 	}
 	return (0);
 }

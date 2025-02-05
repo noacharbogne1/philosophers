@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:47:03 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:23:59 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:45:10 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	*ft_lstnew_generic(size_t data_size)
 	return (new_node);
 }
 
-void ft_lstadd_back_generic(void **lst, void *new_node, size_t next_offset)
+void	ft_lstadd_back_generic(void **lst, void *new_node, size_t next_offset)
 {
-	void *last;
-	void *first;
-	void **next_ptr;
-	void **prev_ptr;
+	void	*last;
+	void	*first;
+	void	**next_ptr;
+	void	**prev_ptr;
 
 	if (!lst || !new_node)
-		return;
+		return ;
 	next_ptr = (void **)((char *)new_node + next_offset);
 	prev_ptr = (void **)((char *)new_node + next_offset + sizeof(void *));
 	if (*lst == NULL)
@@ -39,7 +39,7 @@ void ft_lstadd_back_generic(void **lst, void *new_node, size_t next_offset)
 		*lst = new_node;
 		*next_ptr = new_node;
 		*prev_ptr = new_node;
-		return;
+		return ;
 	}
 	first = *lst;
 	last = *(void **)((char *)first + next_offset + sizeof(void *));
