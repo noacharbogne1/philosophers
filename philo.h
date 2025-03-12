@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:17:30 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 15:54:37 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:05:28 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 
 // errors messages
 
-# define DIGIT "Error: invalid characters in argument"
 # define INT_OVERFLOW "Error: argument overflows INT limits"
-# define NEGATIVE "Error: argument can't be 0 or a negative number"
+# define INVALID "Error: invalid argument"
 # define NB_ARGUMENTS "Error: invalid number of arguments"
 # define NB_PHILOS "Error: must be at least one philosopher"
 

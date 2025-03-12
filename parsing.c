@@ -6,7 +6,7 @@
 /*   By: ncharbog <ncharbog@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:45:54 by ncharbog          #+#    #+#             */
-/*   Updated: 2025/02/05 10:46:19 by ncharbog         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:05:37 by ncharbog         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_int(char *str)
 {
 	if (ft_atol(str) < 1)
 	{
-		printf("%s\n", NEGATIVE);
+		printf("%s\n", INVALID);
 		return (1);
 	}
 	if (ft_atol(str) > 2147483647 || ft_atol(str) < -2147483648
@@ -46,7 +46,7 @@ int	check_args(char **argv)
 		{
 			if (!ft_isdigit(argv[i][j]))
 			{
-				printf("%s\n", DIGIT);
+				printf("%s\n", INVALID);
 				return (1);
 			}
 			j++;
